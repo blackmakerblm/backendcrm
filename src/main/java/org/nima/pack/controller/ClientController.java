@@ -1,0 +1,36 @@
+package org.nima.pack.controller;
+import java.util.List;
+import java.util.Optional;
+import org.nima.pack.model.Client;
+import org.nima.pack.repository.ClientRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+//@CrossOrigin(origins  = "http://localhost:38927",maxAge = 1800,allowCredentials = "true")
+@RestController
+@RequestMapping(path = "/client")
+public class ClientController {
+	@Autowired
+	ClientRepo cltRepo;
+	
+	
+	@PostMapping(path = "/add")
+	public Client ajouterPack(@RequestBody Client p) {
+		return cltRepo.save(p);
+	}
+	
+	@GetMapping(path = "/liste")
+	public List<Client> getAllPack(){
+		return cltRepo.findAll();
+	}
+	
+	@GetMapping("/{id}")
+	public Optional<Client> getPackById(@PathVariable Long id){
+		return cltRepo.findById(id);
+	}
+}
